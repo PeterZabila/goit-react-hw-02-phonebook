@@ -1,13 +1,22 @@
-
+import styled from 'styled-components';
+import ContactListEl from "../ContactListEl/ContactListEl";
 
 export default function ContactList({list, onDeleteContact}) {
     return (
-       
-        <ul>
-           { list.map(({name, number, id}) => (
-                <div key={id}><span>{name} : {number}</span><button type="button" onClick={() => {onDeleteContact(id)}}>Delete contact</button> </div>
-            ))
-            }
-        </ul>
+
+           <ListItems>
+                { list.map(contact => (
+                    <ContactListEl
+                        key={contact.id}
+                        contact={contact}
+                        onDeleteContact={onDeleteContact}
+                    />
+                ))}
+        </ListItems>
     )
 }
+
+const ListItems = styled.ul`
+    width: 300px;
+    padding: 10px;
+`

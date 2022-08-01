@@ -22,14 +22,21 @@ export default class App extends Component {
  
 
   onSubmit = ({id, name, number}) => {
-    this.setState(prevState => prevState.contacts.push({id, name, number}))
+    if (this.state.contacts.find(contact => contact.name === name)) {
+      alert(name + ' is already in contacts');
+      return;
+    }
+
+    this.setState(prevState => prevState.contacts.push({id, name, number}));
+    return;
   }
+
 
   onFilter = (e) => {
     this.setState({filter: e.target.value})
   }
 
-  onDeleteContact = ({id}) => {
+  onDeleteContact = id => {
       this.setState(prevState => ({
         contacts: prevState.contacts.filter(contact => contact.id !== id),
       }))
@@ -57,6 +64,8 @@ export default class App extends Component {
 
 
 const Wrapper = styled.section`
+    width: 300px
+    padding: 10px;
     height: 100vh;
     display: flex;
     flex-direction: column;
